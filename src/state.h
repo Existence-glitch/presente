@@ -5,13 +5,18 @@
 
 #define PLAYER_HP  10
 #define PLAYER_RAD 10
+#define PLAYER_MELEE 4
 #define PLAYER_SPEED 4
 #define PLAYER_COOLDOWN 8
+#define PLAYER_IMMUNITY 100
 
 #define MINION_HP   4
 #define MINION_RAD 12
+#define MINION_MELEE 1
+
 #define BRUTE_HP   12
 #define BRUTE_RAD  16
+#define BRUTE_MELEE  2
 
 #define BULLET_DMG 3
 #define BULLET_SPEED 16

@@ -15,6 +15,7 @@ int main(int argc, char const *argv[]){
     InitWindow(screen_width,screen_height,"Presente - the game");
     SetTargetFPS(60);
 
+
     // Initialize level and fill randomly
     level *lvl = level_new(50,40);
     level_fill_random(lvl,6);
@@ -47,7 +48,8 @@ int main(int argc, char const *argv[]){
 
             draw_state(lvl, sta);
 
-            DrawText("Presente profe!",190,200,20,LIGHTGRAY);
+            DrawText("Presente profe!",10,40,20,LIGHTGRAY);
+            DrawFPS (10,10);
 
         EndDrawing();
 

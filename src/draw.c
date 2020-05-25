@@ -44,7 +44,7 @@ void draw_state(const level *lvl, const state *sta){
         Vector2 vec = {ent.x,ent.y};
         // Draw a circle with the radius of the entity, color depends on the enemy type
         if(sta->enemies[i].kind == MINION){
-            DrawCircleV(vec,ent.rad,YELLOW);
+            DrawCircleV(vec,ent.rad,GREEN);
         }else{
             DrawCircleV(vec,ent.rad,RED);
         }
@@ -68,6 +68,16 @@ void draw_state(const level *lvl, const state *sta){
         Vector2 vec = {ent.x,ent.y};
         // Draw a circle with the radius of the entity
         DrawCircleV(vec,ent.rad,PINK);
+    }
+
+    // Draws player's health and immunity
+    {
+        int health = sta->pla.ent.hp;
+        int immunity = sta->pla.ent.imt;
+        float playerX = sta->pla.ent.x;
+        float playerY = sta->pla.ent.y;
+        DrawText (FormatText("%d", health), playerX, playerY+18,20,RED);
+        DrawText (FormatText("%d", immunity), playerX+25, playerY+18,20,BLUE);
     }
 
     // Stop drawing relative to the camera

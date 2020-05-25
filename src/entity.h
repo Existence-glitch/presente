@@ -15,6 +15,10 @@ typedef struct {
     int hp;
     // if it is dead or not
     int dead;
+    // colission damage
+    int melee;
+    // colission immunity
+    int imt;
 } entity;
 
 /* Updates the entity position according to its velocity.
