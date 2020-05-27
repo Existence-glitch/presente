@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <raylib.h>
 #include <math.h>
 
 state *state_new(){
@@ -20,6 +21,7 @@ state *state_new(){
     sta->pla.ent.rad = PLAYER_RAD;
     sta->pla.ent.hp  = PLAYER_HP;
     sta->pla.ent.imt = PLAYER_IMMUNITY;
+    sta->pla.ent.melee = PLAYER_MELEE;
     // Retrieve pointer to the state
     return sta;
 }
@@ -98,15 +100,42 @@ void state_update(level *lvl, state *sta){
     if(sta->pla.ent.imt < PLAYER_IMMUNITY && sta->pla.ent.imt !=0){
         sta->pla.ent.imt -= 1;
     }
-    // Ends immunity period
+    // Ends player immunity period
     if(sta->pla.ent.imt == 0){
         sta->pla.ent.imt = PLAYER_IMMUNITY;
     } 
 
+    for(int i=0;i<sta->n_enemies;i++){
+        // If the player is colliding with the enemy
+        if(entity_collision(&sta->pla.ent,&sta->enemies[i].ent)){
+            if (sta->enemies[i].ent.imt == ENEMY_IMMUNITY){
+            sta->enemies[i].ent.hp -= sta->pla.ent.melee;
+            sta->enemies[i].ent.imt -= 1;
+            } 
+        }   
+    }
+
+    for(int i=0;i<sta->n_enemies;i++){   
+        // Enemy's immunity period
+        if(sta->enemies[i].ent.imt < ENEMY_IMMUNITY && sta->enemies[i].ent.imt !=0){
+            sta->enemies[i].ent.imt -= 1;
+        }
+        // Ends enemy immunity period
+        if(sta->enemies[i].ent.imt == 0){
+           sta->enemies[i].ent.imt = ENEMY_IMMUNITY;
+        } 
+    }
+
     // == Update entities
     // Update player
     entity_physics(lvl,&sta->pla.ent);
-    if(sta->pla.ent.hp<=0) sta->pla.ent.dead=1;
+    if(sta->pla.ent.hp<=0){
+        DrawText("You've been killed", 310, 200, 20, RED);
+        DrawText("GAME OVER", GetScreenWidth()/2-110, GetScreenHeight()/2, 40, RED);
+        sta->pla.ent.dead=1;
+
+    }
+
     // Update enemies
     for(int i=0;i<sta->n_enemies;i++){
         entity_physics(lvl,&sta->enemies[i].ent);

@@ -47,7 +47,8 @@ int main(int argc, char const *argv[]){
 
             draw_state(lvl, sta);
 
-            DrawText("Presente profe!",190,200,20,LIGHTGRAY);
+            DrawText("Presente profe!",40,40,20,LIGHTGRAY);
+            DrawFPS(20,20);
 
         EndDrawing();
 

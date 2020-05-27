@@ -70,7 +70,7 @@ void draw_state(const level *lvl, const state *sta){
         DrawCircleV(vec,ent.rad,PINK);
     }
 
-    // Draws player's health and immunity
+    // Draws player's health and immunity period
     {
         int health = sta->pla.ent.hp;
         int immunity = sta->pla.ent.imt;
@@ -78,6 +78,15 @@ void draw_state(const level *lvl, const state *sta){
         float playerY = sta->pla.ent.y;
         DrawText (FormatText("%d", health), playerX, playerY+18,20,RED);
         DrawText (FormatText("%d", immunity), playerX+25, playerY+18,20,BLUE);
+    }
+    // Draws enemy's health and immunity period
+    for(int i=0;i<sta->n_enemies;i++){
+        int enemyhealth = sta->enemies[i].ent.hp;
+        int enemyimmunity = sta->enemies[i].ent.imt;
+        float enemyX = sta->enemies[i].ent.x;
+        float enemyY = sta->enemies[i].ent.y;
+        DrawText (FormatText("%d", enemyhealth), enemyX, enemyY+18,15,RED);
+        DrawText (FormatText("%d", enemyimmunity), enemyX+25, enemyY+18,15,BLUE);
     }
 
     // Stop drawing relative to the camera
